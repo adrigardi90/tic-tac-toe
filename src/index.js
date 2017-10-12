@@ -1,7 +1,7 @@
 import { Game } from './modules/game';
 import { Board } from './modules/board';
 import { Player } from './modules/player';
-import './css/styles.scss';
+import './scss/styles.scss';
 
 
 const main = () => {
