@@ -18,5 +18,5 @@ npm run start
 
 ```
 
-Then visit http://localhost:8081 in your browser
+Then visit http://localhost:8080 in your browser
 

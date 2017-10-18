@@ -49,6 +49,7 @@ export class Game{
 	getWinner(){
 		return this.board.hasWinner((winner) => { 
 			this.colorWinner = winner;
+			return true;
 		});
 	}
 

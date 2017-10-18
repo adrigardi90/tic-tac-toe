@@ -72,55 +72,33 @@ export class Board {
 
 		return this.table.some((row, i) => {
 			return row.some((col, j) => {
+
+				let element = this.table[i][j];
 				
-				if(this.table[i][j] != null){
+				if(element != null){
 					
 					//ToDo: rewrite algorithm
 
-					if(this.table[i][j] === row[0] && this.table[i][j] === row[1] && this.table[i][j] === row[2] ){
-						winner(this.table[i][j]) 
-						return true;
-					} 
+					//Row winner
+					if(row.every((elem)=> elem === element)) return winner(element);
 
-					if(this.table[i][j] === this.table[0][j]  && this.table[i][j] === this.table[1][j]  && this.table[i][j] === this.table[2][j]  ){
-						winner(this.table[i][j])
-						return true;
-					} 
-
-					if(i === 0 && j===0){
-						if(this.table[i][j] === this.table[1][1]  && this.table[i][j] === this.table[2][2]){
-							winner(this.table[i][j])
-							return true;
-						}	 
-					}
-
-					if(i === 0 && j===2){
-						if(this.table[i][j] === this.table[1][1]  && this.table[i][j] === this.table[2][0]){
-							winner(this.table[i][j])
-							return true;
-						}	 
-					}
-
-					if(i === 1 && j===1){
-						if(this.table[i][j] === this.table[0][0]  && this.table[i][j] === this.table[2][2]){
-							winner(this.table[i][j])
-							return true;
-						}	 
-					}
-
-					if(i === 2 && j===0){
-						if(this.table[i][j] === this.table[1][1]  && this.table[i][j] === this.table[0][2]){
-							winner(this.table[i][j])
-							return true;
-						}	 
-					}
-
-					if(i === 2 && j===2){
-						if(this.table[i][j] === this.table[1][1]  && this.table[i][j] === this.table[0][0]){
-							winner(this.table[i][j])
-							return true;
-						}	 
-					}
+					//Column winner
+					if(element === this.table[0][j] && element === this.table[1][j] && element === this.table[2][j]) return winner(element);
+					
+					if(i === 0 && j===0)
+						if(element === this.table[2][2] && element === this.table[1][1]) return winner(element);
+					
+					if(i === 0 && j===2)
+						if(element === this.table[1][1] && element === this.table[2][0]) return winner(element);
+ 
+					if(i === 1 && j===1)
+						if(element === this.table[0][0] && element === this.table[2][2]) return winner(element);
+ 
+					if(i === 2 && j===0)
+						if(element === this.table[1][1] && element === this.table[0][2]) return winner(element);
+	 
+					if(i === 2 && j===2)
+						if(element === this.table[1][1] && element === this.table[0][0]) return winner(element);					
 
 				}
 			});
