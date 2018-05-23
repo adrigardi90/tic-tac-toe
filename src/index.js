@@ -60,8 +60,8 @@ const reset = () => {
 }
 
 //Players
-const adrian = new Player("Adrian", "green");
-const juanjo = new Player("Jose", "red");
+const adrian = new Player("Player 1", "green");
+const juanjo = new Player("Player 2", "red");
 
 //Board
 let board = new Board();
