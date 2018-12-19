@@ -1,15 +1,18 @@
-export class Player{
 
-	constructor(name, color){
+export class Player {
+
+	constructor(name, color, seed) {
 		this.name = name;
 		this.color = color;
+		this.seed = seed;
 	}
 
-	getColor(){
+	getColor() {
 		return this.color;
 	}
 
-	getName(){
+	getName() {
 		return this.name;
 	}
+	
 }
