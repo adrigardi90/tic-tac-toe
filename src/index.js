@@ -1,89 +1,98 @@
 import { Game } from './modules/game';
 import { Board } from './modules/board';
 import { Player } from './modules/player';
-import {AI} from './modules/ai';
+import { AI } from './modules/ai';
 import './scss/styles.scss';
 
-
-const main = () => {
+function main(){
 
 	const turn = document.getElementById("turn");
+	const config = document.getElementById("config");
 	const table = board.getBoard();
 	const title = "Turno de ";
 
-	turn.innerHTML = title + game.getTurnName();
+	config.addEventListener('change', ({ target: { value } }) => {
+		config.disabled = true;
+		process(value !== 'multiplayer')
+	})
 
-	table.forEach((row, i) => {
-		row.forEach((col, j) => {
+	const process = (minimax) => {
+		turn.innerHTML = title + game.getTurnName();
 
-			document.getElementById(`box${i}_${j}`).onclick = (e) => {
+		table.forEach((row, i) => {
+			row.forEach((col, j) => {
 
-				const target = e.target || e.srcElement;
-				const position = target.id.substr(target.id.length-3, 3).split('_');
+				document.getElementById(`box${i}_${j}`).onclick = (e) => {
+					config.disabled = true;
 
-				turn.innerHTML = title + game.getTurnName();
+					const target = e.target || e.srcElement;
+					const position = target.id.substr(target.id.length - 3, 3).split('_');
 
-				if(game.canPlay()){
+					turn.innerHTML = title + game.getTurnName();
 
-					if(game.draw(position)){
-						game.changeTurn();
-						turn.innerHTML = title + game.getTurnName();
+					if (game.canPlay()) {
+
+						if (game.draw(position)) {
+							game.changeTurn();
+							turn.innerHTML = title + game.getTurnName();
+						}
+
+						if (game.getWinner(board)) {
+							setTimeout(() => {
+								alert(`Ha ganado ${game.getWinnerPlayer().getName()}`);
+								reset();
+							}, 150);
+						}
+
+						if (!game.canPlay() && !game.getWinner(board)) {
+							setTimeout(() => {
+								alert("Empate");
+								reset();
+							}, 150);
+						}
+
+						if (minimax) {
+							if (game.canPlay() && game.getTurnColor() === 'red' && aiPlayer.playAI()) {
+								game.changeTurn();
+								turn.innerHTML = title + game.getTurnName();
+							}
+
+							if (game.getWinner(board)) {
+								setTimeout(() => {
+									alert(`Ha ganado ${game.getWinnerPlayer().getName()}`);
+									reset();
+								}, 150);
+							}
+						}
 					}
-
-					if(game.getWinner(board)){
-						setTimeout(()=>{
-							alert(`Ha ganado ${game.getWinnerPlayer().getName()}`);
-							reset();
-						},150);
-					}
-
-					if(!game.canPlay() && !game.getWinner(board)){
-						setTimeout(()=>{
-							alert("Empate");
-							reset();
-						},150);
-					}
-
-					if(game.canPlay() && game.getTurnColor() === 'red' && aiPlayer.playAI()){
-						game.changeTurn();
-						turn.innerHTML = title + game.getTurnName();
-					}
-
-					if(game.getWinner(board)){
-						setTimeout(()=>{
-							alert(`Ha ganado ${game.getWinnerPlayer().getName()}`);
-							reset();
-						},150);
-					}
-
 				}
-				
-			}
 
-		}); 
-	});
+			});
+		});
+	}
+
 };
 
 //Reset the board and new game
-const reset = () => {
-
+function reset(){
 	board.reset();
-	game = new Game(adrian, juanjo, board);
-	aiPlayer = new AI(game, board, juanjo, adrian.getColor());
+	game = new Game(adrian, player2, board);
+	aiPlayer = new AI(game, board, player2, adrian.getColor());
+	config.disabled = false;
 }
 
 //Players
 const adrian = new Player("Adrian", "green", "X");
-const juanjo = new Player("Jose", "red", "O");
+const player2 = new Player("Player 2", "red", "O");
 
 //Board
 const board = new Board();
 
 //Game
-let game = new Game(adrian, juanjo, board);
+let game = new Game(adrian, player2, board);
 
 // Initialize Juanjo as AI player
-let aiPlayer = new AI(game, board, juanjo, adrian.getColor())
+let aiPlayer = new AI(game, board, player2, adrian.getColor())
 
 //Main
 main();
