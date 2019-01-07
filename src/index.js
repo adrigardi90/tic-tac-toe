@@ -38,17 +38,11 @@ function main(){
 						}
 
 						if (game.getWinner(board)) {
-							setTimeout(() => {
-								alert(`Ha ganado ${game.getWinnerPlayer().getName()}`);
-								reset();
-							}, 150);
+							game.printMessage(`Ha ganado ${game.getWinnerPlayer().getName()}`, 150, reset)
 						}
 
 						if (!game.canPlay() && !game.getWinner(board)) {
-							setTimeout(() => {
-								alert("Empate");
-								reset();
-							}, 150);
+							game.printMessage('Empate', 150, reset)
 						}
 
 						if (minimax) {
@@ -58,10 +52,7 @@ function main(){
 							}
 
 							if (game.getWinner(board)) {
-								setTimeout(() => {
-									alert(`Ha ganado ${game.getWinnerPlayer().getName()}`);
-									reset();
-								}, 150);
+								game.printMessage(`Ha ganado ${game.getWinnerPlayer().getName()}`, 150, reset)
 							}
 						}
 					}
@@ -91,7 +82,7 @@ const board = new Board();
 //Game
 let game = new Game(adrian, player2, board);
 
-// Initialize Juanjo as AI player
+// Initialize Player2 as AI player
 let aiPlayer = new AI(game, board, player2, adrian.getColor())
 
 //Main

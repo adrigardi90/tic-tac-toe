@@ -11,6 +11,10 @@ export class AI {
         return this.game.draw(this.getBestMove(this.board.cloneBoard()))
     }
 
+    /**
+     * Get the best move
+     * @param {*} board 
+     */
     getBestMove(board) {
         let bestScore = -100
         let currentScore;
@@ -31,7 +35,6 @@ export class AI {
         moves.forEach(move => {
             let newBoard = board.cloneBoard();
             newBoard.playMemory(move, this.aiPlayer.color);
-            console.log('moveee', move)
             currentScore = this.minimax(newBoard, false)
             if (currentScore > bestScore) {
                 bestScore = currentScore
@@ -42,6 +45,12 @@ export class AI {
         return bestMove
     }
 
+    /**
+     * Minimax algorithm
+     * @param {*} board 
+     * @param {*} maximizing 
+     * @param {*} depth 
+     */
     minimax(board, maximizing = true, depth = 0) {
         const winner = this.game.getWinner(board, false);
 

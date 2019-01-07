@@ -1,4 +1,4 @@
-import { Board } from './board'
+
 export class Game {
 
 	constructor(player1, player2, board) {
@@ -32,8 +32,9 @@ export class Game {
 		this.turnCount++;
 	}
 
-	/*
+	/**
 	 * Play the tab
+	 * @param {*} position 
 	 */
 	draw(position) {
 		if (!this.board.isPlayed(position)) {
@@ -43,14 +44,16 @@ export class Game {
 	}
 
 	/*
-	 * Check if the is space to play
+	 * Check out if there is space to play
 	 */
 	canPlay() {
 		return this.board.isEmpty();
 	}
 
-	/*
-	 * Check if there is some winner
+	/**
+	 * Check out if there is a winner
+	 * @param {*} board 
+	 * @param {*} real 
 	 */
 	getWinner(board, real = true) {
 		return board.hasWinner((winner) => {
@@ -59,14 +62,27 @@ export class Game {
 		});
 	}
 
-	/*
-	 * Get the winner player
+	/**
+	 * Get the winner
+	 * @param {*} real 
 	 */
 	getWinnerPlayer(real = true) {
 		return this.players.find((player) => {
 			const color = real ? this.colorWinner : this.colorMemoryWinner
 			return player.color === color
 		})
+	}
+
+	/**
+	 * Shows up an alert
+	 * @param {*} msg 
+	 * @param {*} timeout 
+	 */
+	printMessage(msg, timeout, reset){
+		setTimeout(() => {
+			alert(msg);
+			reset()
+		}, timeout);
 	}
 
 

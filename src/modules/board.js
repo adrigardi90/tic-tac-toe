@@ -12,8 +12,11 @@ export class Board {
 		}
 	}
 
-	/*
+	/**
 	 * Play the tab in the board and change the styles
+	 * @param {*} position 
+	 * @param {*} value 
+	 * @param {*} pos 
 	 */
 	play(position, value, pos = `${position[0]}_${position[1]}`) {
 
@@ -26,7 +29,12 @@ export class Board {
 		return true;
 	}
 
-
+	/**
+	 * Play the tab in memory
+	 * @param {*} position 
+	 * @param {*} value 
+	 * @param {*} pos 
+	 */
 	playMemory(position, value, pos = `${position[0]}_${position[1]}`) {
 		this.table[position[0]][position[1]] = value;
 		return true;
@@ -69,6 +77,9 @@ export class Board {
 		return this.table;
 	}
 
+	/**
+	 * Clone the board
+	 */
 	cloneBoard() {
 		const newArray = this.table.map(function(arr) {
 			return arr.slice();
@@ -77,6 +88,9 @@ export class Board {
 		return new Board(newArray)
 	}
 
+	/**
+	 * Get the available moves
+	 */
 	getAvailableMoves() {
 		let moves = [];
 
@@ -91,15 +105,17 @@ export class Board {
 		return moves;
 	}
 
-	/*
-	 * Get if a position is already played
+	/**
+	 * Check out if a positions is played
+	 * @param {*} position 
 	 */
 	isPlayed(position) {
 		return !(this.table[position[0]][position[1]] === null);
 	}
 
-	/*
+	/**
 	 * Algorithm
+	 * @param {*} winner callback
 	 */
 	hasWinner(winner) {
 

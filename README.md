@@ -1,5 +1,5 @@
-# tic-tac-toe
-> Simple Tic-Tac-Toe game using [ES6](http://es6-features.org/#Constants) with [Webpack 3](https://webpack.js.org/configuration/) &amp; [Babel](https://babeljs.io/)
+# AI tic-tac-toe
+> Tic-Tac-Toe game using [ES6](http://es6-features.org/#Constants) with [Webpack 3](https://webpack.js.org/configuration/) &amp; [Babel](https://babeljs.io/). There are two different modes: 2 players game and 1 player vs computer (AI using minimax algorithm)
 
 ## Quick start
 
