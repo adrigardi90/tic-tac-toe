@@ -14,5 +14,4 @@ export class Player {
 	getName() {
 		return this.name;
 	}
-	
 }
