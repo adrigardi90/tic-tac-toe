@@ -1,10 +1,9 @@
 
 export class Player {
 
-	constructor(name, color, seed) {
+	constructor(name, color) {
 		this.name = name;
 		this.color = color;
-		this.seed = seed;
 	}
 
 	getColor() {

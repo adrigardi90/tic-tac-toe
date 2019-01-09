@@ -6,10 +6,7 @@ import './scss/styles.scss';
 
 function main(){
 
-	const turn = document.getElementById("turn");
-	const config = document.getElementById("config");
 	const table = board.getBoard();
-	const title = "Turno de ";
 
 	config.addEventListener('change', ({ target: { value } }) => {
 		config.disabled = true;
@@ -70,11 +67,17 @@ function reset(){
 	game = new Game(adrian, player2, board);
 	aiPlayer = new AI(game, board, player2, adrian.getColor());
 	config.disabled = false;
+	turn.innerHTML = title + adrian.getName();
 }
 
+// Config
+const turn = document.getElementById("turn");
+const config = document.getElementById("config");
+const title = "Turno de ";
+
 //Players
-const adrian = new Player("Adrian", "green", "X");
-const player2 = new Player("Player 2", "red", "O");
+const adrian = new Player("Adrian", "green");
+const player2 = new Player("Player 2", "red");
 
 //Board
 const board = new Board();
