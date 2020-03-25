@@ -10,10 +10,10 @@ function main(){
 
 	config.addEventListener('change', ({ target: { value } }) => {
 		config.disabled = true;
-		process(value !== 'multiplayer')
+		process(value === 'minimax', value === 'minimax-pruning')
 	})
 
-	const process = (minimax) => {
+	const process = (minimax, minimaxPruning) => {
 		turn.innerHTML = title + game.getTurnName();
 
 		table.forEach((row, i) => {
@@ -35,21 +35,21 @@ function main(){
 						}
 
 						if (game.getWinner(board)) {
-							game.printMessage(`Ha ganado ${game.getWinnerPlayer().getName()}`, 150, reset)
+							game.printMessage(`Winner: ${game.getWinnerPlayer().getName()}`, 150, reset)
 						}
 
 						if (!game.canPlay() && !game.getWinner(board)) {
-							game.printMessage('Empate', 150, reset)
+							game.printMessage('Draw', 150, reset)
 						}
 
-						if (minimax) {
-							if (game.canPlay() && game.getTurnColor() === 'red' && aiPlayer.playAI()) {
+						if (minimax || minimaxPruning) {
+							if (game.canPlay() && game.getTurnColor() === 'red' && aiPlayer.playAI(minimaxPruning)) {
 								game.changeTurn();
 								turn.innerHTML = title + game.getTurnName();
 							}
 
 							if (game.getWinner(board)) {
-								game.printMessage(`Ha ganado ${game.getWinnerPlayer().getName()}`, 150, reset)
+								game.printMessage(`Winner: ${game.getWinnerPlayer().getName()}`, 150, reset)
 							}
 						}
 					}
@@ -73,7 +73,7 @@ function reset(){
 // Config
 const turn = document.getElementById("turn");
 const config = document.getElementById("config");
-const title = "Turno de ";
+const title = "Next turn: ";
 
 //Players
 const adrian = new Player("Adrian", "green");
