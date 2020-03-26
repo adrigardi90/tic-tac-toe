@@ -40,10 +40,9 @@ export class AI {
             return corners.find(corner => (!board.isPlayed(corner)))
 
         moves.forEach(move => {
-            console.log(move)
             let newBoard = board.cloneBoard();
             newBoard.playMemory(move, this.aiPlayer.color);
-            currentScore = pruning ? this.minimaxPruning(newBoard, false, 0, alpha, beta) : this.minimax(newBoard, false, 0) 
+            currentScore = pruning ? this.minimaxPruning(newBoard, false, 0, alpha, beta) : this.minimax(newBoard, false, 0)
 
             if (pruning) alpha = currentScore
 
@@ -78,7 +77,6 @@ export class AI {
         if (maximizing) {
             let bestScore = -100
             moves.forEach(move => {
-                console.log(move)
                 let newBoard = board.cloneBoard();
                 newBoard.playMemory(move, this.aiPlayer.color)
                 currentScore = this.minimax(newBoard, false, ++depth)
@@ -93,7 +91,6 @@ export class AI {
         if (!maximizing) {
             let bestScore = 100
             moves.forEach(move => {
-                console.log(move)
                 let newBoard = board.cloneBoard();
                 newBoard.playMemory(move, this.opponent)
                 currentScore = this.minimax(newBoard, true, ++depth)
@@ -126,9 +123,8 @@ export class AI {
      * Get winner socreo
      */
     getWinnerScore(depth) {
-        if (this.game.getWinnerPlayer(false).getColor() === 'red') {
+        if (this.game.getWinnerPlayer(false).getColor() === 'red')
             return 100 - depth;
-        }
 
         return -100 + depth;
     }
@@ -149,7 +145,6 @@ export class AI {
             let bestScore = -100
 
             for (let index = 0; index < moves.length; index++) {
-                console.log(moves[index])
                 const newBoard = board.cloneBoard();
                 newBoard.playMemory(moves[index], this.aiPlayer.color)
                 currentScore = this.minimaxPruning(newBoard, false, ++depth, localalpha, localbeta)
@@ -171,7 +166,6 @@ export class AI {
             let bestScore = 100
 
             for (let index = 0; index < moves.length; index++) {
-                console.log(moves[index])
                 const newBoard = board.cloneBoard();
                 newBoard.playMemory(moves[index], this.opponent)
                 currentScore = this.minimaxPruning(newBoard, true, ++depth, localalpha, localbeta)
