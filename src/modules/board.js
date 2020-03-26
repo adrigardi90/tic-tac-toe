@@ -35,7 +35,7 @@ export class Board {
 	 * @param {*} value 
 	 * @param {*} pos 
 	 */
-	playMemory(position, value, pos = `${position[0]}_${position[1]}`) {
+	playMemory(position, value) {
 		this.table[position[0]][position[1]] = value;
 		return true;
 	}
@@ -44,9 +44,7 @@ export class Board {
 	 * Reset the board 
 	 */
 	reset() {
-		this.table = [[null, null, null],
-		[null, null, null],
-		[null, null, null]];
+		this.table = [[null, null, null], [null, null, null], [null, null, null]];
 
 		this.table.forEach((row, i) => {
 			row.forEach((col, j) => {
